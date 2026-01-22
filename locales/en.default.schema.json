@@ -45,6 +45,7 @@
         "padding_top": "Top padding",
         "padding_bottom": "Bottom padding"
       },
+            "heading_size": { "label": "Heading size" },
       "colors": {
         "label": "Color scheme",
         "background_1": "Background 1",
