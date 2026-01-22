@@ -1,6 +1,6 @@
 {
   "sections": {
-    "dual-media-slideshow": {
+    "image_banner": {
       "type": "dual-media-slideshow",
       "blocks": {
         "slide_1": {
@@ -27,7 +27,7 @@
         "autoplay_speed": 5
       }
     },
-    "marquee-text": {
+    "marquee": {
       "type": "marquee-text",
       "settings": {
         "text_1": "HOT PICKS",
@@ -39,7 +39,7 @@
         "text_color": "#000000"
       }
     },
-    "product-highlights": {
+    "highlights": {
       "type": "product-highlights",
       "settings": {
         "heading": "Tech You'll",
@@ -48,7 +48,7 @@
         "collection": ""
       }
     },
-    "split-banner": {
+    "banner": {
       "type": "split-banner",
       "settings": {
         "image": "",
@@ -61,7 +61,7 @@
         "reverse_layout": false
       }
     },
-    "parallax-banner": {
+    "parallax": {
       "type": "parallax-banner",
       "blocks": {
         "banner_1": {
@@ -79,7 +79,7 @@
         "enable_parallax": true
       }
     },
-    "featured-collection": {
+    "collection": {
       "type": "featured-collection",
       "settings": {
         "title": "Featured Collection",
@@ -89,7 +89,7 @@
         "show_view_all": true
       }
     },
-    "reveal-media": {
+    "reveal": {
       "type": "reveal-media",
       "settings": {
         "heading": "Discover Our Story",
@@ -98,14 +98,14 @@
         "video_url": ""
       }
     },
-    "scrolling-collections": {
+    "scrolling": {
       "type": "scrolling-collections",
       "settings": {
         "heading": "Shop by Category",
         "speed": 25
       }
     },
-    "trending-products": {
+    "trending": {
       "type": "trending-products",
       "settings": {
         "heading": "Trending Now",
@@ -116,14 +116,14 @@
         "show_view_all": true
       }
     },
-    "shop-the-look": {
+    "look": {
       "type": "shop-the-look",
       "settings": {
         "heading": "Shop the Look",
         "image": ""
       }
     },
-    "collapsible-content": {
+    "faq": {
       "type": "collapsible-content",
       "blocks": {
         "faq_1": {
@@ -141,14 +141,6 @@
             "content": "<p>Standard shipping takes 3-5 business days. Express shipping is available.</p>",
             "icon": "shipping"
           }
-        },
-        "faq_3": {
-          "type": "collapsible_row",
-          "settings": {
-            "heading": "Do you offer warranty?",
-            "content": "<p>Yes, all products come with a 1-year manufacturer warranty.</p>",
-            "icon": "quality"
-          }
         }
       },
       "settings": {
@@ -159,7 +151,7 @@
         "allow_multiple": false
       }
     },
-    "media-gallery": {
+    "gallery": {
       "type": "media-gallery",
       "settings": {
         "heading": "Follow Us @brand",
@@ -170,17 +162,17 @@
     }
   },
   "order": [
-    "dual-media-slideshow",
-    "marquee-text",
-    "product-highlights",
-    "split-banner",
-    "parallax-banner",
-    "featured-collection",
-    "reveal-media",
-    "scrolling-collections",
-    "trending-products",
-    "shop-the-look",
-    "collapsible-content",
-    "media-gallery"
+    "image_banner",
+    "marquee",
+    "highlights",
+    "banner",
+    "parallax",
+    "collection",
+    "reveal",
+    "scrolling",
+    "trending",
+    "look",
+    "faq",
+    "gallery"
   ]
 }
