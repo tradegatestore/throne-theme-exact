@@ -1,0 +1,56 @@
+{
+  "sections": {
+    "header": {
+      "name": "Header"
+    },
+    "footer": {
+      "name": "Footer",
+      "blocks": {
+        "link_list": {
+          "name": "Menu",
+          "settings": {
+            "heading": { "label": "Heading" },
+            "menu": { "label": "Menu" }
+          }
+        },
+        "text": {
+          "name": "Text",
+          "settings": {
+            "heading": { "label": "Heading" },
+            "subtext": { "label": "Subtext" }
+          }
+        }
+      }
+    },
+    "main-404": {
+      "name": "404 Page",
+      "settings": {
+        "heading": { "label": "Heading" },
+        "subheading": { "label": "Subheading" },
+        "button_label": { "label": "Button label" },
+        "button_link": { "label": "Button link" }
+      }
+    },
+    "featured-collection": {
+      "name": "Featured collection",
+      "settings": {
+        "title": { "label": "Heading" },
+        "collection": { "label": "Collection" },
+        "products_to_show": { "label": "Maximum products to show" }
+      }
+    },
+    "all": {
+      "padding": {
+        "section_padding_heading": "Section padding",
+        "padding_top": "Top padding",
+        "padding_bottom": "Bottom padding"
+      },
+      "colors": {
+        "label": "Color scheme",
+        "background_1": "Background 1",
+        "background_2": "Background 2",
+        "inverse": "Inverse"
+      }
+    }
+  }
+}
