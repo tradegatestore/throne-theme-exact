@@ -1,0 +1,21 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-404",
+      "settings": {
+        "heading": "Page not found",
+        "subheading": "The page you requested does not exist.",
+        "button_label": "Continue shopping",
+        "button_link": "/collections/all"
+      }
+    },
+    "recommendations": {
+      "type": "featured-collection",
+      "settings": {
+        "heading": "Popular products",
+        "products_to_show": 4
+      }
+    }
+  },
+  "order": ["main", "recommendations"]
+}
