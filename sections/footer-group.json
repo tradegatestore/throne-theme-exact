@@ -1,0 +1,24 @@
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "link_list": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Quick links"
+          }
+        }
+      },
+      "block_order": ["link_list"],
+      "settings": {
+        "color_scheme": "background-1"
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}
