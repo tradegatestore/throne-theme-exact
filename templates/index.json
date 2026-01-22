@@ -48,6 +48,19 @@
         "collection": ""
       }
     },
+    "split-banner": {
+      "type": "split-banner",
+      "settings": {
+        "image": "",
+        "subtitle": "New Collection",
+        "heading": "Discover the Art of Modern Living",
+        "text": "<p>Explore our curated collection designed for those who appreciate refined aesthetics.</p>",
+        "button_label": "Explore Collection",
+        "button_link": "",
+        "button_style": "primary",
+        "reverse_layout": false
+      }
+    },
     "parallax-banner": {
       "type": "parallax-banner",
       "blocks": {
@@ -95,10 +108,12 @@
     "trending-products": {
       "type": "trending-products",
       "settings": {
-        "heading": "Trending",
-        "heading_highlight": "Products",
+        "heading": "Trending Now",
+        "subheading": "Discover our most popular pieces",
         "collection": "",
-        "products_to_show": 6
+        "products_to_show": 8,
+        "show_color_swatches": true,
+        "show_view_all": true
       }
     },
     "shop-the-look": {
@@ -112,21 +127,45 @@
       "type": "collapsible-content",
       "blocks": {
         "faq_1": {
-          "type": "faq",
+          "type": "collapsible_row",
           "settings": {
-            "question": "What is your return policy?",
-            "answer": "We offer a 30-day return policy for all unused items."
+            "heading": "What is your return policy?",
+            "content": "<p>We offer a 30-day return policy for all unused items in original packaging.</p>",
+            "icon": "returns"
+          }
+        },
+        "faq_2": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "How long does shipping take?",
+            "content": "<p>Standard shipping takes 3-5 business days. Express shipping is available.</p>",
+            "icon": "shipping"
+          }
+        },
+        "faq_3": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Do you offer warranty?",
+            "content": "<p>Yes, all products come with a 1-year manufacturer warranty.</p>",
+            "icon": "quality"
           }
         }
       },
       "settings": {
-        "heading": "Frequently Asked Questions"
+        "heading": "Frequently Asked Questions",
+        "subheading": "Find answers to common questions about our products and services.",
+        "layout": "stacked",
+        "open_first": true,
+        "allow_multiple": false
       }
     },
     "media-gallery": {
       "type": "media-gallery",
       "settings": {
-        "heading": "Follow Us @brand"
+        "heading": "Follow Us @brand",
+        "subheading": "Share your style with us",
+        "full_width": false,
+        "layout": "masonry"
       }
     }
   },
@@ -134,6 +173,7 @@
     "dual-media-slideshow",
     "marquee-text",
     "product-highlights",
+    "split-banner",
     "parallax-banner",
     "featured-collection",
     "reveal-media",
