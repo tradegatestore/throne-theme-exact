@@ -1,0 +1,240 @@
+/* Parallax Products Banner Styles for Throne Theme */
+
+.parallax-banner {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.parallax-banner__background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120%;
+  z-index: 0;
+}
+
+.parallax-banner__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
+}
+
+.parallax-banner__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+  z-index: 1;
+}
+
+.parallax-banner__content {
+  position: relative;
+  z-index: 2;
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 4rem var(--page-padding);
+  color: white;
+}
+
+.parallax-banner__subtitle {
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  margin-bottom: 1rem;
+  opacity: 0.9;
+}
+
+.parallax-banner__title {
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  max-width: 600px;
+}
+
+.parallax-banner__description {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  max-width: 500px;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+.parallax-banner__products {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 3rem;
+  flex-wrap: wrap;
+}
+
+.parallax-banner__product {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 1rem;
+  width: 200px;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.parallax-banner__product:hover {
+  transform: translateY(-10px);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.parallax-banner__product-image {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.parallax-banner__product-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.parallax-banner__product-price {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-accent-1);
+}
+
+.parallax-banner__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background-color: white;
+  color: var(--color-foreground);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.parallax-banner__button:hover {
+  background-color: var(--color-accent-1);
+  color: white;
+}
+
+/* Floating Product Cards */
+.parallax-banner--floating {
+  position: relative;
+}
+
+.parallax-banner__floating-products {
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+@media screen and (max-width: 990px) {
+  .parallax-banner__floating-products {
+    position: static;
+    transform: none;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+}
+
+.parallax-banner__floating-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  width: 220px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: float 6s ease-in-out infinite;
+}
+
+.parallax-banner__floating-card:nth-child(2) {
+  animation-delay: -2s;
+}
+
+.parallax-banner__floating-card:nth-child(3) {
+  animation-delay: -4s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.parallax-banner__floating-image {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+.parallax-banner__floating-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-foreground);
+  margin-bottom: 0.5rem;
+}
+
+.parallax-banner__floating-price {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-accent-1);
+}
+
+/* Split Layout */
+.parallax-banner--split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+}
+
+@media screen and (max-width: 749px) {
+  .parallax-banner--split {
+    grid-template-columns: 1fr;
+  }
+}
+
+.parallax-banner__left,
+.parallax-banner__right {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+}
+
+.parallax-banner__left {
+  background-color: var(--color-background);
+}
+
+.parallax-banner__right {
+  overflow: hidden;
+}
+
+.parallax-banner__right-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
