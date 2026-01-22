@@ -32,112 +32,7 @@
     },
     "footer": {
       "name": "Footer",
-      "payment": "Payment methods"
-    },
-    "main_404": {
-      "name": "404 Page",
-      "title": "Page not found",
-      "subtext": "The page you requested does not exist."
-    },
-    "featured_collection": {
-      "name": "Featured collection",
-      "settings": {
-        "title": {
-          "label": "Heading"
-        },
-        "collection": {
-          "label": "Collection"
-        },
-        "products_to_show": {
-          "label": "Maximum products to show"
-        }
-      }
-    },
-    "image_banner": {
-      "name": "Image banner",
-      "settings": {
-        "image": {
-          "label": "Image"
-        },
-        "heading": {
-          "label": "Heading"
-        }
-      }
-    },
-    "rich_text": {
-      "name": "Rich text",
-      "settings": {
-        "heading": {
-          "label": "Heading"
-        },
-        "text": {
-          "label": "Description"
-        }
-      }
-    },
-    "collection_list": {
-      "name": "Collection list"
-    },
-    "main_product": {
-      "name": "Product information"
-    },
-    "main_collection": {
-      "name": "Product grid"
-    },
-    "main_cart": {
-      "name": "Cart"
-    },
-    "announcement_bar": {
-      "name": "Announcement bar"
-    }
-  },
-  "settings_schema": {
-    "colors": {
-      "name": "Colors",
-      "settings": {
-        "header__1": { "content": "Primary colors" },
-        "header__2": { "content": "Secondary colors" },
-        "colors_text": { "label": "Text" },
-        "colors_background_1": { "label": "Background 1" },
-        "colors_background_2": { "label": "Background 2" },
-        "colors_accent_1": { "label": "Accent 1" },
-        "colors_accent_2": { "label": "Accent 2" },
-        "colors_solid_button_labels": { "label": "Solid button label" }
-      }
-    },
-    "typography": {
-      "name": "Typography",
-      "settings": {
-        "header__1": { "content": "Headings" },
-        "header__2": { "content": "Body" },
-        "type_header_font": { "label": "Font" },
-        "type_body_font": { "label": "Font" },
-        "body_font_size": { "label": "Font size" },
-        "heading_font_size": { "label": "Font size" }
-      }
-    },
-    "layout": {
-      "name": "Layout",
-      "settings": {
-        "page_width": { "label": "Page width" },
-        "spacing_sections": { "label": "Space between sections" }
-      }
-    },
-    "buttons": {
-      "name": "Buttons",
-      "settings": {
-        "button_border_radius": { "label": "Border radius" }
-      }
-    },
-    "header": {
-      "name": "Header",
-      "settings": {
-        "menu": { "label": "Menu" },
-        "logo": { "label": "Logo" }
-      }
-    },
-    "footer": {
-      "name": "Footer",
+      "payment": "Payment methods",
       "blocks": {
         "link_list": {
           "name": "Menu",
@@ -155,7 +50,58 @@
         }
       }
     },
+    "main-404": {
+      "name": "404 Page",
+      "settings": {
+        "heading": { "label": "Heading" },
+        "subheading": { "label": "Subheading" },
+        "button_label": { "label": "Button label" },
+        "button_link": { "label": "Button link" }
+      }
+    },
+    "featured-collection": {
+      "name": "Featured collection",
+      "settings": {
+        "title": { "label": "Heading" },
+        "collection": { "label": "Collection" },
+        "products_to_show": { "label": "Maximum products to show" }
+      }
+    },
+    "image-banner": {
+      "name": "Image banner",
+      "settings": {
+        "image": { "label": "Image" },
+        "heading": { "label": "Heading" }
+      }
+    },
+    "rich-text": {
+      "name": "Rich text",
+      "settings": {
+        "heading": { "label": "Heading" },
+        "text": { "label": "Description" }
+      }
+    },
+    "collection-list": {
+      "name": "Collection list"
+    },
+    "main-product": {
+      "name": "Product information"
+    },
+    "main-collection": {
+      "name": "Product grid"
+    },
+    "main-cart": {
+      "name": "Cart"
+    },
+    "announcement-bar": {
+      "name": "Announcement bar"
+    },
     "all": {
+      "padding": {
+        "section_padding_heading": "Section padding",
+        "padding_top": "Top padding",
+        "padding_bottom": "Bottom padding"
+      },
       "colors": {
         "label": "Color scheme",
         "background_1": "Background 1",
