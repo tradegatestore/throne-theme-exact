@@ -1,0 +1,336 @@
+/* Featured Collection Section Styles
+   Premium product grid with hover effects and animations */
+
+.featured-collection {
+  padding: 80px 0;
+  background: var(--color-background);
+}
+
+.featured-collection__header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.featured-collection__title {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin-bottom: 15px;
+  color: var(--color-foreground);
+}
+
+.featured-collection__description {
+  font-size: 1.1rem;
+  color: var(--color-foreground-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Product Grid Layout */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  padding: 0 var(--page-gutter);
+}
+
+@media screen and (max-width: 1199px) {
+  .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 899px) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media screen and (max-width: 549px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Product Card Styles */
+.product-card-wrapper {
+  position: relative;
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--card-corner-radius, 0);
+  background: var(--color-background-card);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+}
+
+/* Card Media */
+.card__media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1/1.25;
+}
+
+.card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.4s ease;
+}
+
+.card-image-primary {
+  position: relative;
+  z-index: 1;
+}
+
+.card-image-secondary {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  opacity: 0;
+}
+
+.card:hover .card-image-primary {
+  transform: scale(1.05);
+}
+
+.card:hover .card-image-secondary {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+/* Card Badge */
+.card__badge {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  z-index: 5;
+  padding: 6px 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 3px;
+}
+
+.badge.color-inverse {
+  background: var(--color-foreground);
+  color: var(--color-background);
+}
+
+.badge.color-accent-1 {
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+}
+
+/* Card Content */
+.card__content {
+  padding: 20px;
+}
+
+.card__information {
+  text-align: left;
+}
+
+.caption-with-letter-spacing {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-foreground-secondary);
+  margin-bottom: 5px;
+}
+
+.card__heading {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+
+.card__heading a {
+  color: var(--color-foreground);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.card__heading a:hover {
+  color: var(--color-accent);
+}
+
+/* Price Styles */
+.price {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.price-item {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.price-item--regular {
+  color: var(--color-foreground-secondary);
+  text-decoration: line-through;
+}
+
+.price-item--sale {
+  color: var(--color-accent);
+}
+
+.price--on-sale .price__regular {
+  display: flex;
+}
+
+.price--sold-out .price-item {
+  color: var(--color-foreground-secondary);
+}
+
+/* Quick Add Button */
+.card__actions {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  margin-top: 15px;
+}
+
+.card:hover .card__actions {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.quick-add__submit {
+  width: 100%;
+  padding: 12px 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 2px solid var(--color-foreground);
+  background: transparent;
+  color: var(--color-foreground);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.quick-add__submit:hover {
+  background: var(--color-foreground);
+  color: var(--color-background);
+}
+
+.quick-add__submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* View All Button */
+.featured-collection__footer {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.button--view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 35px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  border: 2px solid var(--color-foreground);
+  color: var(--color-foreground);
+  transition: all 0.3s ease;
+}
+
+.button--view-all:hover {
+  background: var(--color-foreground);
+  color: var(--color-background);
+}
+
+.button--view-all svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s ease;
+}
+
+.button--view-all:hover svg {
+  transform: translateX(5px);
+}
+
+/* Rating Styles */
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.rating-star {
+  --percent: calc((var(--rating) + var(--rating-decimal, 0)) / var(--rating-max) * 100%);
+  display: inline-block;
+  font-size: 1rem;
+  line-height: 1;
+  background: linear-gradient(90deg, var(--color-accent) var(--percent), var(--color-foreground-secondary) var(--percent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.rating-text,
+.rating-count {
+  font-size: 0.8rem;
+  color: var(--color-foreground-secondary);
+}
+
+/* Loading Spinner */
+.loading-overlay__spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  animation: rotate 2s linear infinite;
+  width: 20px;
+  height: 20px;
+}
+
+.spinner .path {
+  stroke: currentColor;
+  stroke-linecap: round;
+  animation: dash 1.5s ease-in-out infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
+  }
+}
