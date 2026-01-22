@@ -1,0 +1,78 @@
+<div class="shop-the-look" data-section-id="{{ section.id }}">
+  <div class="shop-the-look__container page-width">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="shop-the-look__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+    <div class="shop-the-look__content">
+      <div class="shop-the-look__image-wrapper">
+        {%- if section.settings.image != blank -%}
+          <img src="{{ section.settings.image | image_url: width: 1000 }}" alt="{{ section.settings.image.alt | escape }}" class="shop-the-look__image" loading="lazy">
+        {%- else -%}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+        {%- for block in section.blocks -%}
+          <button class="shop-the-look__hotspot" style="left: {{ block.settings.position_x }}%; top: {{ block.settings.position_y }}%;" data-product-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+            <span class="shop-the-look__hotspot-icon">+</span>
+          </button>
+        {%- endfor -%}
+      </div>
+      <div class="shop-the-look__products">
+        {%- for block in section.blocks -%}
+          {%- if block.settings.product != blank -%}
+            <div class="shop-the-look__product" data-index="{{ forloop.index0 }}">
+              <a href="{{ block.settings.product.url }}" class="shop-the-look__product-link">
+                <img src="{{ block.settings.product.featured_image | image_url: width: 200 }}" alt="{{ block.settings.product.title }}" class="shop-the-look__product-image">
+                <div class="shop-the-look__product-info">
+                  <h4 class="shop-the-look__product-title">{{ block.settings.product.title }}</h4>
+                  <span class="shop-the-look__product-price">{{ block.settings.product.price | money }}</span>
+                </div>
+              </a>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.shop-the-look { padding: 80px 0; }
+.shop-the-look__heading { text-align: center; font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 50px; }
+.shop-the-look__content { display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; align-items: start; }
+.shop-the-look__image-wrapper { position: relative; border-radius: 20px; overflow: hidden; }
+.shop-the-look__image { width: 100%; height: auto; display: block; }
+.shop-the-look__hotspot { position: absolute; width: 40px; height: 40px; background: var(--color-accent, #c8f542); border: none; border-radius: 50%; cursor: pointer; transform: translate(-50%, -50%); transition: all 0.3s ease; z-index: 2; }
+.shop-the-look__hotspot:hover { transform: translate(-50%, -50%) scale(1.2); box-shadow: 0 0 20px rgba(200,245,66,0.5); }
+.shop-the-look__hotspot-icon { font-size: 24px; color: #000; font-weight: bold; }
+.shop-the-look__products { display: flex; flex-direction: column; gap: 20px; }
+.shop-the-look__product { padding: 15px; border-radius: 12px; background: var(--color-card-bg, #1a1a1a); transition: all 0.3s ease; }
+.shop-the-look__product:hover { transform: translateX(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+.shop-the-look__product-link { display: flex; gap: 15px; align-items: center; text-decoration: none; color: inherit; }
+.shop-the-look__product-image { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; }
+.shop-the-look__product-title { font-size: 1rem; margin: 0 0 5px; }
+.shop-the-look__product-price { color: var(--color-accent, #c8f542); font-weight: 700; }
+@media (max-width: 900px) { .shop-the-look__content { grid-template-columns: 1fr; } }
+</style>
+
+{% schema %}
+{
+  "name": "Shop the Look",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Shop the Look" },
+    { "type": "image_picker", "id": "image", "label": "Lookbook Image" }
+  ],
+  "blocks": [
+    {
+      "type": "product_hotspot",
+      "name": "Product Hotspot",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "range", "id": "position_x", "label": "Horizontal Position (%)", "min": 0, "max": 100, "default": 50 },
+        { "type": "range", "id": "position_y", "label": "Vertical Position (%)", "min": 0, "max": 100, "default": 50 }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Shop the Look" }]
+}
+{% endschema %}
