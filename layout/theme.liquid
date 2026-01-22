@@ -49,7 +49,7 @@
       --font-body-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
       --font-body-style: {{ settings.type_body_font.style }};
       --font-body-weight: {{ settings.type_body_font.weight }};
-      --font-body-size: {{ settings.type_body_size }}px;
+      --font-body-scale: {{ settings.body_font_scale | divided_by: 100.0 }};
 
       --font-heading-family: {{ settings.type_header_font.family }}, {{ settings.type_header_font.fallback_families }};
       --font-heading-style: {{ settings.type_header_font.style }};
@@ -63,10 +63,19 @@
       --color-base-accent-2: {{ settings.colors_accent_2.red }}, {{ settings.colors_accent_2.green }}, {{ settings.colors_accent_2.blue }};
 
       --page-width: {{ settings.page_width | divided_by: 10 }}rem;
-      --grid-desktop-horizontal-spacing: 2rem;
-      --grid-desktop-vertical-spacing: 2rem;
-      --grid-mobile-horizontal-spacing: 1rem;
-      --grid-mobile-vertical-spacing: 1rem;
+      --page-width-margin: {% if settings.page_width == '1600' %}2{% else %}0{% endif %}rem;
+
+      --buttons-radius: {{ settings.buttons_radius }}px;
+      --buttons-border-width: {% if settings.buttons_border_opacity > 0 %}{{ settings.buttons_border_thickness }}{% else %}0{% endif %}px;
+      --buttons-border-opacity: {{ settings.buttons_border_opacity | divided_by: 100.0 }};
+
+      --inputs-radius: {{ settings.inputs_radius }}px;
+      --inputs-border-width: {{ settings.inputs_border_thickness }}px;
+      --inputs-border-opacity: {{ settings.inputs_border_opacity | divided_by: 100.0 }};
+
+      --variant-pills-radius: {{ settings.variant_pills_radius }}px;
+      --variant-pills-border-width: {{ settings.variant_pills_border_thickness }}px;
+      --variant-pills-border-opacity: {{ settings.variant_pills_border_opacity | divided_by: 100.0 }};
     }
 
     *,
@@ -76,43 +85,135 @@
     }
 
     html {
-      font-size: calc(var(--font-body-size) * 0.625);
+      font-size: calc(var(--font-body-scale) * 62.5%);
     }
 
     body {
-      font-size: 1.6rem;
+      min-height: 100vh;
+      margin: 0;
       font-family: var(--font-body-family);
       font-style: var(--font-body-style);
       font-weight: var(--font-body-weight);
+      font-size: 1.5rem;
+      line-height: 1.6;
       color: rgb(var(--color-base-text));
       background-color: rgb(var(--color-base-background-1));
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading-family);
+      font-style: var(--font-heading-style);
+      font-weight: var(--font-heading-weight);
+      line-height: 1.2;
       margin: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .page-width {
+      max-width: var(--page-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    @media screen and (min-width: 750px) {
+      .page-width {
+        padding: 0 5rem;
+      }
+    }
+
+    .visually-hidden {
+      position: absolute !important;
+      overflow: hidden;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      border: 0;
+      clip: rect(0 0 0 0);
+      word-wrap: normal !important;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem 3rem;
+      font-size: 1.4rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border: none;
+      border-radius: var(--buttons-radius);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .button--primary {
+      background-color: rgb(var(--color-base-accent-1));
+      color: rgb(var(--color-base-solid-button-labels));
+    }
+
+    .button--primary:hover {
+      background-color: rgb(var(--color-base-accent-2));
+    }
+
+    .button--secondary {
+      background-color: transparent;
+      border: 1px solid rgb(var(--color-base-text));
+      color: rgb(var(--color-base-text));
+    }
+
+    .button--secondary:hover {
+      background-color: rgb(var(--color-base-text));
+      color: rgb(var(--color-base-background-1));
+    }
+
+    .section-padding {
+      padding-top: 5rem;
+      padding-bottom: 5rem;
+    }
+
+    @media screen and (min-width: 750px) {
+      .section-padding {
+        padding-top: 7.5rem;
+        padding-bottom: 7.5rem;
+      }
     }
   {% endstyle %}
 
   {{ 'base.css' | asset_url | stylesheet_tag }}
 </head>
 
-<body class="template-{{ template.name }}">
+<body class="template-{{ template.name }}{% if template.suffix %} template-{{ template.name }}-{{ template.suffix }}{% endif %}">
   <a class="skip-to-content-link button visually-hidden" href="#MainContent">
     {{ "accessibility.skip_to_text" | t }}
   </a>
 
-  {% sections 'header-group' %}
+  {%- sections 'header-group' -%}
 
   <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
     {{ content_for_layout }}
   </main>
 
-  {% sections 'footer-group' %}
+  {%- sections 'footer-group' -%}
 
   <script>
-    window.routes = {
-      cart_add_url: '{{ routes.cart_add_url }}',
-      cart_change_url: '{{ routes.cart_change_url }}',
-      cart_update_url: '{{ routes.cart_update_url }}',
-      predictive_search_url: '{{ routes.predictive_search_url }}'
-    };
+    document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
   </script>
 </body>
 </html>
