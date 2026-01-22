@@ -1,0 +1,209 @@
+{{ 'marquee-text.css' | asset_url | stylesheet_tag }}
+
+<div class="marquee-section" style="background-color: {{ section.settings.background_color }};">
+  <div class="marquee-wrapper">
+    <div class="marquee-track" data-marquee-track style="animation-duration: {{ section.settings.speed }}s;">
+      {%- for i in (1..3) -%}
+        <div class="marquee-content">
+          {%- for block in section.blocks -%}
+            <span class="marquee-item" {{ block.shopify_attributes }}>
+              {%- if block.settings.icon != blank -%}
+                <span class="marquee-icon" style="color: {{ block.settings.icon_color }};">
+                  {% render 'icon-lightning' %}
+                </span>
+              {%- endif -%}
+              <span class="marquee-text" style="color: {{ section.settings.text_color }};">{{ block.settings.text }}</span>
+            </span>
+          {%- endfor -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+<style>
+  .marquee-section {
+    overflow: hidden;
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+  }
+  .marquee-wrapper {
+    position: relative;
+    width: 100%;
+  }
+  .marquee-track {
+    display: flex;
+    width: fit-content;
+    animation: marquee-scroll linear infinite;
+  }
+  .marquee-section:hover .marquee-track {
+    animation-play-state: paused;
+  }
+  .marquee-content {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    padding: 0 1.5rem;
+  }
+  .marquee-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    white-space: nowrap;
+  }
+  .marquee-icon {
+    display: flex;
+    font-size: 1.25rem;
+  }
+  .marquee-icon svg {
+    width: 1.25em;
+    height: 1.25em;
+  }
+  .marquee-text {
+    font-size: {{ section.settings.font_size }}px;
+    font-weight: {{ section.settings.font_weight }};
+    text-transform: {{ section.settings.text_transform }};
+    letter-spacing: {{ section.settings.letter_spacing }}em;
+  }
+  @keyframes marquee-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-33.333%); }
+  }
+  @media (max-width: 749px) {
+    .marquee-text {
+      font-size: calc({{ section.settings.font_size }}px * 0.8);
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Marquee Text",
+  "tag": "section",
+  "class": "section-marquee-text",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#84cc16"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Font weight",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi-bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "select",
+      "id": "text_transform",
+      "label": "Text transform",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "uppercase", "label": "Uppercase" },
+        { "value": "lowercase", "label": "Lowercase" },
+        { "value": "capitalize", "label": "Capitalize" }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "range",
+      "id": "letter_spacing",
+      "min": 0,
+      "max": 0.3,
+      "step": 0.01,
+      "label": "Letter spacing",
+      "default": 0.05
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "s",
+      "label": "Animation speed",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 15
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text_item",
+      "name": "Text item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "FLASH DEALS"
+        },
+        {
+          "type": "checkbox",
+          "id": "icon",
+          "label": "Show icon",
+          "default": true
+        },
+        {
+          "type": "color",
+          "id": "icon_color",
+          "label": "Icon color",
+          "default": "#000000"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Marquee Text",
+      "blocks": [
+        { "type": "text_item", "settings": { "text": "FLASH DEALS" } },
+        { "type": "text_item", "settings": { "text": "SAVE BIG TODAY!" } },
+        { "type": "text_item", "settings": { "text": "HOT PICKS" } },
+        { "type": "text_item", "settings": { "text": "UPGRADE TODAY" } },
+        { "type": "text_item", "settings": { "text": "POWERFUL SOUND" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
