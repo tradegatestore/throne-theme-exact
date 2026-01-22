@@ -1,0 +1,89 @@
+{
+  "general": {
+    "skip_to_content": "Skip to content"
+  },
+  "accessibility": {
+    "skip_to_text": "Skip to content"
+  },
+  "settings_schema": {
+    "colors": {
+      "name": "Colors",
+      "settings": {
+        "header__1": { "content": "Primary colors" },
+        "header__2": { "content": "Secondary colors" },
+        "colors_text": { "label": "Text" },
+        "colors_background_1": { "label": "Background 1" },
+        "colors_background_2": { "label": "Background 2" },
+        "colors_accent_1": { "label": "Accent 1" },
+        "colors_accent_2": { "label": "Accent 2" },
+        "colors_solid_button_labels": { "label": "Solid button label" }
+      }
+    },
+    "typography": {
+      "name": "Typography",
+      "settings": {
+        "header__1": { "content": "Headings" },
+        "header__2": { "content": "Body" },
+        "type_header_font": { "label": "Font" },
+        "type_body_font": { "label": "Font" },
+        "body_font_size": { "label": "Font size" }
+      }
+    },
+    "layout": {
+      "name": "Layout",
+      "settings": {
+        "page_width": { "label": "Page width" }
+      }
+    },
+    "favicon": {
+      "name": "Favicon",
+      "settings": {
+        "favicon": { "label": "Favicon image" }
+      }
+    }
+  },
+  "sections": {
+    "header": {
+      "name": "Header",
+      "settings": {
+        "logo": { "label": "Logo image" },
+        "logo_width": { "label": "Logo width" },
+        "logo_position": {
+          "label": "Logo position",
+          "options__1": { "label": "Middle left" },
+          "options__2": { "label": "Top left" },
+          "options__3": { "label": "Top center" },
+          "options__4": { "label": "Middle center" }
+        },
+        "menu": { "label": "Menu" }
+      }
+    },
+    "footer": {
+      "name": "Footer",
+      "blocks": {
+        "link_list": {
+          "name": "Menu",
+          "settings": {
+            "heading": { "label": "Heading" },
+            "menu": { "label": "Menu" }
+          }
+        },
+        "text": {
+          "name": "Text",
+          "settings": {
+            "heading": { "label": "Heading" },
+            "subtext": { "label": "Subtext" }
+          }
+        }
+      }
+    },
+    "all": {
+      "colors": {
+        "label": "Color scheme",
+        "background_1": "Background 1",
+        "background_2": "Background 2",
+        "inverse": "Inverse"
+      }
+    }
+  }
+}
