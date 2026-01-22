@@ -1,0 +1,19 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-blog",
+      "settings": {
+        "layout": "grid",
+        "show_image": true,
+        "show_date": true,
+        "show_author": true,
+        "show_excerpt": true,
+        "articles_per_page": 12,
+        "columns_desktop": 3,
+        "columns_mobile": 1,
+        "image_ratio": "landscape"
+      }
+    }
+  },
+  "order": ["main"]
+}
