@@ -1,0 +1,160 @@
+{% comment %}
+  Main Product Section - Product page template
+{% endcomment %}
+
+<section class="main-product" data-section-id="{{ section.id }}">
+  <div class="page-width">
+    <div class="product-grid grid grid--2-col">
+      
+      {%- comment -%} Product Media Gallery {%- endcomment -%}
+      <div class="product__media-wrapper grid__item">
+        <div class="product__media-gallery" data-product-gallery>
+          {%- if product.media.size > 0 -%}
+            <div class="product__media-main">
+              {%- for media in product.media -%}
+                <div class="product__media-item{% if forloop.first %} is-active{% endif %}" data-media-id="{{ media.id }}">
+                  {%- case media.media_type -%}
+                    {%- when 'image' -%}
+                      {{ media | image_url: width: 1200 | image_tag:
+                        loading: 'eager',
+                        sizes: '(min-width: 750px) 50vw, 100vw',
+                        widths: '375, 550, 750, 1100, 1500',
+                        class: 'product__media-image'
+                      }}
+                    {%- when 'video' -%}
+                      {{ media | video_tag: autoplay: false, controls: true, class: 'product__media-video' }}
+                    {%- when 'external_video' -%}
+                      {{ media | external_video_tag: class: 'product__media-video' }}
+                  {%- endcase -%}
+                </div>
+              {%- endfor -%}
+            </div>
+            
+            {%- if product.media.size > 1 -%}
+              <div class="product__media-thumbnails">
+                {%- for media in product.media -%}
+                  <button class="product__media-thumbnail{% if forloop.first %} is-active{% endif %}" data-thumbnail="{{ media.id }}">
+                    {{ media.preview_image | image_url: width: 150 | image_tag: loading: 'lazy', class: 'thumbnail-image' }}
+                  </button>
+                {%- endfor -%}
+              </div>
+            {%- endif -%}
+          {%- else -%}
+            <div class="product__media-placeholder">
+              {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+      
+      {%- comment -%} Product Info {%- endcomment -%}
+      <div class="product__info-wrapper grid__item">
+        <div class="product__info">
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+              {%- when '@app' -%}
+                {% render block %}
+              {%- when 'vendor' -%}
+                <div class="product__vendor" {{ block.shopify_attributes }}>
+                  {{ product.vendor }}
+                </div>
+              {%- when 'title' -%}
+                <h1 class="product__title {{ block.settings.heading_size }}" {{ block.shopify_attributes }}>
+                  {{ product.title }}
+                </h1>
+              {%- when 'price' -%}
+                <div class="product__price" {{ block.shopify_attributes }}>
+                  {% render 'price', product: product, use_variant: true, show_badges: true %}
+                </div>
+              {%- when 'variant_picker' -%}
+                <div class="product__variants" {{ block.shopify_attributes }}>
+                  {%- unless product.has_only_default_variant -%}
+                    {%- for option in product.options_with_values -%}
+                      <div class="product__option">
+                        <label class="product__option-label">{{ option.name }}</label>
+                        <div class="product__option-values">
+                          {%- for value in option.values -%}
+                            <input type="radio" id="option-{{ option.name | handleize }}-{{ value | handleize }}" name="option-{{ option.name | handleize }}" value="{{ value }}"{% if option.selected_value == value %} checked{% endif %}>
+                            <label for="option-{{ option.name | handleize }}-{{ value | handleize }}" class="product__option-value">
+                              {{ value }}
+                            </label>
+                          {%- endfor -%}
+                        </div>
+                      </div>
+                    {%- endfor -%}
+                  {%- endunless -%}
+                </div>
+              {%- when 'quantity_selector' -%}
+                <div class="product__quantity" {{ block.shopify_attributes }}>
+                  <label for="quantity">{{ 'products.product.quantity.label' | t }}</label>
+                  <div class="quantity-selector">
+                    <button type="button" class="quantity-btn" data-action="decrease">-</button>
+                    <input type="number" id="quantity" name="quantity" value="1" min="1" max="{{ product.selected_or_first_available_variant.inventory_quantity | default: 99 }}">
+                    <button type="button" class="quantity-btn" data-action="increase">+</button>
+                  </div>
+                </div>
+              {%- when 'buy_buttons' -%}
+                <div class="product__buy-buttons" {{ block.shopify_attributes }}>
+                  {%- form 'product', product, id: 'product-form', class: 'product-form' -%}
+                    <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                    <button type="submit" class="button button--primary button--full-width{% if product.selected_or_first_available_variant.available == false %} button--disabled{% endif %}" {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}>
+                      {%- if product.selected_or_first_available_variant.available -%}
+                        {{ 'products.product.add_to_cart' | t }}
+                      {%- else -%}
+                        {{ 'products.product.sold_out' | t }}
+                      {%- endif -%}
+                    </button>
+                    {%- if block.settings.show_dynamic_checkout -%}
+                      {{ form | payment_button }}
+                    {%- endif -%}
+                  {%- endform -%}
+                </div>
+              {%- when 'description' -%}
+                <div class="product__description rte" {{ block.shopify_attributes }}>
+                  {{ product.description }}
+                </div>
+              {%- when 'collapsible_tab' -%}
+                <details class="product__accordion" {{ block.shopify_attributes }}>
+                  <summary class="product__accordion-header"><span>{{ block.settings.heading }}</span><span class="accordion-icon"></span></summary>
+                  <div class="product__accordion-content rte">{{ block.settings.content }}</div>
+                </details>
+            {%- endcase -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product Information",
+  "tag": "section",
+  "class": "section-main-product",
+  "blocks": [
+    { "type": "@app" },
+    { "type": "vendor", "name": "Vendor", "limit": 1 },
+    { "type": "title", "name": "Title", "limit": 1, "settings": [
+      { "type": "select", "id": "heading_size", "label": "Size", "options": [
+        { "value": "h2", "label": "Small" }, { "value": "h1", "label": "Medium" }, { "value": "h0", "label": "Large" }
+      ], "default": "h1" }
+    ]},
+    { "type": "price", "name": "Price", "limit": 1 },
+    { "type": "variant_picker", "name": "Variant Picker", "limit": 1 },
+    { "type": "quantity_selector", "name": "Quantity Selector", "limit": 1 },
+    { "type": "buy_buttons", "name": "Buy Buttons", "limit": 1, "settings": [
+      { "type": "checkbox", "id": "show_dynamic_checkout", "label": "Show dynamic checkout", "default": true }
+    ]},
+    { "type": "description", "name": "Description", "limit": 1 },
+    { "type": "collapsible_tab", "name": "Collapsible Tab", "settings": [
+      { "type": "text", "id": "heading", "label": "Heading", "default": "Details" },
+      { "type": "richtext", "id": "content", "label": "Content" }
+    ]}
+  ],
+  "presets": [{ "name": "Product Information", "blocks": [
+    { "type": "vendor" }, { "type": "title" }, { "type": "price" },
+    { "type": "variant_picker" }, { "type": "quantity_selector" },
+    { "type": "buy_buttons" }, { "type": "description" }
+  ]}]
+}
+{% endschema %}
