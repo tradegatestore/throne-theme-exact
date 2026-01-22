@@ -1,67 +1,146 @@
 {
   "sections": {
-    "image-banner": {
-      "type": "image-banner",
+    "dual-media-slideshow": {
+      "type": "dual-media-slideshow",
+      "blocks": {
+        "slide_1": {
+          "type": "slide",
+          "settings": {
+            "left_image": "",
+            "left_subheading": "Crafted for audiophiles",
+            "left_heading": "Where",
+            "left_heading_highlight": "Excellence Meets",
+            "left_text": "Deep Resonance",
+            "right_image": "",
+            "right_bg_color": "#f5f0e8",
+            "right_heading": "Pure Sound Experience",
+            "right_text": "Redefining modern audio",
+            "button_1_label": "Explore Now",
+            "button_1_link": "",
+            "button_2_label": "Shop Collection",
+            "button_2_link": ""
+          }
+        }
+      },
       "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "desktop_content_position": "middle-center",
-        "show_text_box": false,
-        "desktop_content_alignment": "center",
-        "color_scheme": "inverse",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
+        "autoplay": true,
+        "autoplay_speed": 5
+      }
+    },
+    "marquee-text": {
+      "type": "marquee-text",
+      "settings": {
+        "text_1": "HOT PICKS",
+        "text_2": "UPGRADE TODAY",
+        "text_3": "POWERFUL SOUND",
+        "text_4": "FLASH DEALS",
+        "speed": 30,
+        "background_color": "#c8f542",
+        "text_color": "#000000"
+      }
+    },
+    "product-highlights": {
+      "type": "product-highlights",
+      "settings": {
+        "heading": "Tech You'll",
+        "heading_highlight": "Truly Love",
+        "subheading": "Upgrade every day with connected devices delivering effortless performance.",
+        "collection": ""
+      }
+    },
+    "parallax-banner": {
+      "type": "parallax-banner",
+      "blocks": {
+        "banner_1": {
+          "type": "banner",
+          "settings": {
+            "category": "Earbuds",
+            "heading": "Enjoy seamless audio anytime, anywhere",
+            "button_label": "Shop Collection",
+            "button_link": "",
+            "image": ""
+          }
+        }
+      },
+      "settings": {
+        "enable_parallax": true
       }
     },
     "featured-collection": {
       "type": "featured-collection",
       "settings": {
         "title": "Featured Collection",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "products_to_show": 4,
+        "collection": "",
+        "products_to_show": 8,
         "columns_desktop": 4,
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "color_scheme": "background-1",
-        "image_ratio": "square",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "enable_quick_add": false,
-        "columns_mobile": "2"
+        "show_view_all": true
       }
     },
-    "rich-text": {
-      "type": "rich-text",
+    "reveal-media": {
+      "type": "reveal-media",
+      "settings": {
+        "heading": "Discover Our Story",
+        "text": "Experience innovation at its finest",
+        "image": "",
+        "video_url": ""
+      }
+    },
+    "scrolling-collections": {
+      "type": "scrolling-collections",
+      "settings": {
+        "heading": "Shop by Category",
+        "speed": 25
+      }
+    },
+    "trending-products": {
+      "type": "trending-products",
+      "settings": {
+        "heading": "Trending",
+        "heading_highlight": "Products",
+        "collection": "",
+        "products_to_show": 6
+      }
+    },
+    "shop-the-look": {
+      "type": "shop-the-look",
+      "settings": {
+        "heading": "Shop the Look",
+        "image": ""
+      }
+    },
+    "collapsible-content": {
+      "type": "collapsible-content",
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "faq_1": {
+          "type": "faq",
           "settings": {
-            "heading": "Welcome to our store",
-            "heading_size": "h1"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Share information about your brand with your customers.</p>"
+            "question": "What is your return policy?",
+            "answer": "We offer a 30-day return policy for all unused items."
           }
         }
       },
-      "block_order": ["heading", "text"],
       "settings": {
-        "desktop_content_position": "center",
-        "content_alignment": "center",
-        "color_scheme": "background-1",
-        "full_width": true
+        "heading": "Frequently Asked Questions"
+      }
+    },
+    "media-gallery": {
+      "type": "media-gallery",
+      "settings": {
+        "heading": "Follow Us @brand"
       }
     }
   },
-  "order": ["image-banner", "featured-collection", "rich-text"]
+  "order": [
+    "dual-media-slideshow",
+    "marquee-text",
+    "product-highlights",
+    "parallax-banner",
+    "featured-collection",
+    "reveal-media",
+    "scrolling-collections",
+    "trending-products",
+    "shop-the-look",
+    "collapsible-content",
+    "media-gallery"
+  ]
 }
