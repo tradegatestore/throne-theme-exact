@@ -1,0 +1,188 @@
+{{ 'section-main-collection.css' | asset_url | stylesheet_tag }}
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+{%- endstyle -%}
+
+<div class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}">
+  {%- paginate collection.products by section.settings.products_per_page -%}
+    <div class="collection page-width">
+      <div class="collection__header">
+        {%- if section.settings.show_collection_title -%}
+          <h1 class="collection__title h2">{{ collection.title | escape }}</h1>
+        {%- endif -%}
+        {%- if section.settings.show_collection_description and collection.description != blank -%}
+          <div class="collection__description rte">{{ collection.description }}</div>
+        {%- endif -%}
+      </div>
+
+      <div class="collection__toolbar">
+        {%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
+          <facet-filters-form class="facets">
+            <form id="FacetFiltersForm" class="facets__form">
+              {%- if section.settings.enable_filtering -%}
+                <div class="facets__wrapper" data-breakpoint="mobile">
+                  {%- render 'facets', results: collection, enable_filtering: section.settings.enable_filtering -%}
+                </div>
+              {%- endif -%}
+
+              {%- if section.settings.enable_sorting -%}
+                <div class="facets__sort">
+                  <label for="SortBy">{{ 'products.facets.sort_by_label' | t }}</label>
+                  <select name="sort_by" id="SortBy" class="select__select">
+                    {%- for option in collection.sort_options -%}
+                      <option value="{{ option.value }}" {% if option.value == collection.sort_by %}selected{% endif %}>{{ option.name }}</option>
+                    {%- endfor -%}
+                  </select>
+                </div>
+              {%- endif -%}
+            </form>
+          </facet-filters-form>
+        {%- endif -%}
+      </div>
+
+      <div class="collection__products">
+        <ul class="grid product-grid grid--{{ section.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down" role="list">
+          {%- for product in collection.products -%}
+            <li class="grid__item">
+              {%- render 'card-product',
+                card_product: product,
+                media_aspect_ratio: section.settings.image_ratio,
+                show_secondary_image: section.settings.show_secondary_image,
+                show_vendor: section.settings.show_vendor,
+                show_rating: section.settings.show_rating -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+
+        {%- if paginate.pages > 1 -%}
+          {%- render 'pagination', paginate: paginate -%}
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endpaginate -%}
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main-collection.name",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 8,
+      "max": 36,
+      "step": 4,
+      "default": 16,
+      "label": "t:sections.main-collection.settings.products_per_page.label"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 4,
+      "label": "t:sections.main-collection.settings.columns_desktop.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.main-collection.settings.header__1.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_title",
+      "default": true,
+      "label": "t:sections.main-collection.settings.show_collection_title.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_description",
+      "default": true,
+      "label": "t:sections.main-collection.settings.show_collection_description.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_filtering",
+      "default": true,
+      "label": "t:sections.main-collection.settings.enable_filtering.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sorting",
+      "default": true,
+      "label": "t:sections.main-collection.settings.enable_sorting.label"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        { "value": "adapt", "label": "t:sections.main-collection.settings.image_ratio.options__1.label" },
+        { "value": "portrait", "label": "t:sections.main-collection.settings.image_ratio.options__2.label" },
+        { "value": "square", "label": "t:sections.main-collection.settings.image_ratio.options__3.label" }
+      ],
+      "default": "adapt",
+      "label": "t:sections.main-collection.settings.image_ratio.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_secondary_image",
+      "default": true,
+      "label": "t:sections.main-collection.settings.show_secondary_image.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "default": false,
+      "label": "t:sections.main-collection.settings.show_vendor.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "default": false,
+      "label": "t:sections.main-collection.settings.show_rating.label"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "default": "2",
+      "label": "t:sections.main-collection.settings.columns_mobile.label",
+      "options": [
+        { "value": "1", "label": "t:sections.main-collection.settings.columns_mobile.options__1.label" },
+        { "value": "2", "label": "t:sections.main-collection.settings.columns_mobile.options__2.label" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ]
+}
+{% endschema %}
