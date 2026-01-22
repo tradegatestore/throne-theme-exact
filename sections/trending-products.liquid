@@ -1,0 +1,172 @@
+{{ 'section-trending-products.css' | asset_url | stylesheet_tag }}
+
+<section class="trending-products section-{{ section.id }}" data-section-id="{{ section.id }}">
+  <div class="trending-products__container page-width">
+    {% if section.settings.heading != blank %}
+      <div class="trending-products__header" data-scroll-reveal>
+        <h2 class="trending-products__title h1">{{ section.settings.heading }}</h2>
+        {% if section.settings.subheading != blank %}
+          <p class="trending-products__subtitle">{{ section.settings.subheading }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+    
+    <div class="trending-products__grid" data-products-grid>
+      {% for product in section.settings.collection.products limit: section.settings.products_to_show %}
+        <div class="trending-products__item" data-scroll-reveal data-delay="{{ forloop.index | times: 100 }}">
+          <a href="{{ product.url }}" class="trending-products__link">
+            <div class="trending-products__image-wrapper">
+              {% if product.featured_image %}
+                <img 
+                  src="{{ product.featured_image | img_url: '600x' }}"
+                  alt="{{ product.featured_image.alt | escape }}"
+                  class="trending-products__image trending-products__image--primary"
+                  loading="lazy"
+                >
+                {% if product.images[1] %}
+                  <img 
+                    src="{{ product.images[1] | img_url: '600x' }}"
+                    alt="{{ product.images[1].alt | escape }}"
+                    class="trending-products__image trending-products__image--secondary"
+                    loading="lazy"
+                  >
+                {% endif %}
+              {% else %}
+                {{ 'product-1' | placeholder_svg_tag: 'trending-products__placeholder' }}
+              {% endif %}
+              
+              {% if product.available == false %}
+                <span class="trending-products__badge trending-products__badge--soldout">{{ 'products.product.sold_out' | t }}</span>
+              {% elsif product.compare_at_price > product.price %}
+                <span class="trending-products__badge trending-products__badge--sale">Sale</span>
+              {% endif %}
+              
+              <div class="trending-products__quick-actions">
+                <button type="button" class="trending-products__quick-view" data-product-url="{{ product.url }}" aria-label="Quick view">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/></svg>
+                </button>
+              </div>
+            </div>
+            
+            <div class="trending-products__info">
+              <h3 class="trending-products__product-title">{{ product.title }}</h3>
+              <div class="trending-products__price">
+                {% if product.compare_at_price > product.price %}
+                  <span class="trending-products__price--compare">{{ product.compare_at_price | money }}</span>
+                {% endif %}
+                <span class="trending-products__price--regular">{{ product.price | money }}</span>
+              </div>
+              {% if section.settings.show_color_swatches and product.options_by_name['Color'] %}
+                <div class="trending-products__swatches">
+                  {% for value in product.options_by_name['Color'].values %}
+                    <span class="trending-products__swatch" style="background-color: {{ value | handleize }};" title="{{ value }}"></span>
+                  {% endfor %}
+                </div>
+              {% endif %}
+            </div>
+          </a>
+        </div>
+      {% else %}
+        {% for i in (1..4) %}
+          <div class="trending-products__item trending-products__item--placeholder" data-scroll-reveal>
+            <div class="trending-products__image-wrapper">
+              {{ 'product-1' | placeholder_svg_tag: 'trending-products__placeholder' }}
+            </div>
+            <div class="trending-products__info">
+              <h3 class="trending-products__product-title">Sample Product {{ i }}</h3>
+              <div class="trending-products__price">
+                <span class="trending-products__price--regular">$99.00</span>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% endfor %}
+    </div>
+    
+    {% if section.settings.show_view_all and section.settings.collection %}
+      <div class="trending-products__footer" data-scroll-reveal>
+        <a href="{{ section.settings.collection.url }}" class="trending-products__view-all button button--secondary">
+          {{ 'collections.general.view_all' | t }}
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  .trending-products { padding: 60px 0; background: var(--color-background); }
+  .trending-products__header { text-align: center; margin-bottom: 50px; opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+  .trending-products__header.is-visible { opacity: 1; transform: translateY(0); }
+  .trending-products__title { font-size: clamp(2rem, 5vw, 3.5rem); margin: 0 0 15px; letter-spacing: -0.02em; }
+  .trending-products__subtitle { font-size: 1.1rem; color: var(--color-text-muted, #666); max-width: 600px; margin: 0 auto; }
+  .trending-products__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+  .trending-products__item { opacity: 0; transform: translateY(40px); transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+  .trending-products__item.is-visible { opacity: 1; transform: translateY(0); }
+  .trending-products__link { display: block; text-decoration: none; color: inherit; }
+  .trending-products__image-wrapper { position: relative; overflow: hidden; border-radius: 12px; aspect-ratio: 3/4; background: var(--color-card-bg, #f5f5f5); }
+  .trending-products__image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+  .trending-products__image--secondary { opacity: 0; }
+  .trending-products__link:hover .trending-products__image--primary { opacity: 0; transform: scale(1.05); }
+  .trending-products__link:hover .trending-products__image--secondary { opacity: 1; transform: scale(1.05); }
+  .trending-products__badge { position: absolute; top: 12px; left: 12px; padding: 6px 12px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; border-radius: 4px; }
+  .trending-products__badge--sale { background: var(--color-accent, #c8f542); color: #000; }
+  .trending-products__badge--soldout { background: #333; color: #fff; }
+  .trending-products__quick-actions { position: absolute; bottom: 12px; right: 12px; opacity: 0; transform: translateY(10px); transition: all 0.3s ease; }
+  .trending-products__link:hover .trending-products__quick-actions { opacity: 1; transform: translateY(0); }
+  .trending-products__quick-view { width: 40px; height: 40px; border-radius: 50%; background: #fff; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.15); transition: all 0.3s ease; }
+  .trending-products__quick-view:hover { transform: scale(1.1); background: var(--color-accent, #c8f542); }
+  .trending-products__info { padding: 20px 0; }
+  .trending-products__product-title { font-size: 1rem; font-weight: 500; margin: 0 0 8px; transition: color 0.3s ease; }
+  .trending-products__link:hover .trending-products__product-title { color: var(--color-accent, #c8f542); }
+  .trending-products__price { display: flex; gap: 10px; align-items: center; }
+  .trending-products__price--compare { text-decoration: line-through; color: var(--color-text-muted, #999); font-size: 0.9rem; }
+  .trending-products__price--regular { font-weight: 600; font-size: 1rem; }
+  .trending-products__swatches { display: flex; gap: 6px; margin-top: 10px; }
+  .trending-products__swatch { width: 16px; height: 16px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px rgba(0,0,0,0.1); cursor: pointer; }
+  .trending-products__footer { text-align: center; margin-top: 50px; opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
+  .trending-products__footer.is-visible { opacity: 1; transform: translateY(0); }
+  .trending-products__view-all { display: inline-flex; align-items: center; gap: 10px; padding: 15px 35px; border: 2px solid currentColor; background: transparent; color: inherit; font-weight: 600; text-decoration: none; transition: all 0.3s ease; }
+  .trending-products__view-all:hover { background: var(--color-text); color: var(--color-background); }
+  .trending-products__placeholder { width: 100%; height: 100%; background: #e0e0e0; }
+  @media (max-width: 1024px) { .trending-products__grid { grid-template-columns: repeat(3, 1fr); gap: 20px; } }
+  @media (max-width: 768px) { .trending-products__grid { grid-template-columns: repeat(2, 1fr); gap: 15px; } .trending-products { padding: 40px 0; } }
+  @media (max-width: 480px) { .trending-products__grid { grid-template-columns: 1fr; } }
+</style>
+
+<script>
+  (function() {
+    const section = document.querySelector('.section-{{ section.id }}');
+    if (!section) return;
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const delay = entry.target.dataset.delay || 0;
+          setTimeout(() => {
+            entry.target.classList.add('is-visible');
+          }, delay);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    
+    section.querySelectorAll('[data-scroll-reveal]').forEach(el => observer.observe(el));
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Trending Products",
+  "tag": "section",
+  "class": "section-trending-products",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Trending Now" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Discover our most popular pieces" },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "products_to_show", "label": "Products to show", "min": 2, "max": 12, "step": 1, "default": 8 },
+    { "type": "checkbox", "id": "show_color_swatches", "label": "Show color swatches", "default": true },
+    { "type": "checkbox", "id": "show_view_all", "label": "Show View All button", "default": true }
+  ],
+  "presets": [{ "name": "Trending Products" }]
+}
+{% endschema %}
