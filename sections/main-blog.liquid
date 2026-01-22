@@ -1,0 +1,187 @@
+{{ 'section-blog.css' | asset_url | stylesheet_tag }}
+{{ 'component-article-card.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+{%- endstyle -%}
+
+<div class="main-blog section-{{ section.id }}-padding">
+  <div class="page-width">
+    <header class="main-blog__header">
+      <h1 class="main-blog__title h2">{{ blog.title | escape }}</h1>
+      {%- if section.settings.show_tags -%}
+        <nav class="main-blog__tags" aria-label="{{ 'blogs.article.tags' | t }}">
+          <ul class="list-unstyled blog-tags">
+            <li>
+              <a href="{{ blog.url }}" class="blog-tag{% if current_tags == blank %} blog-tag--active{% endif %}">
+                {{ 'blogs.article.all_tags' | t }}
+              </a>
+            </li>
+            {%- for tag in blog.all_tags -%}
+              <li>
+                {{ tag | link_to_tag: tag | replace: 'class=""', 'class="blog-tag' | append: '"' }}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+      {%- endif -%}
+    </header>
+
+    {%- paginate blog.articles by section.settings.articles_per_page -%}
+      <div class="blog-articles grid grid--{{ section.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down">
+        {%- for article in blog.articles -%}
+          <div class="blog-articles__article article grid__item">
+            <div class="card-wrapper">
+              <article class="article-card {% if article.image %}article-card--standard{% else %}article-card--no-image{% endif %}" aria-labelledby="Article-{{ article.id }}">
+                {%- if article.image and section.settings.show_image -%}
+                  <div class="article-card__image-wrapper">
+                    <a href="{{ article.url }}" class="article-card__image-link">
+                      <img
+                        srcset="{{ article.image | image_url: width: 165 }} 165w,
+                          {{ article.image | image_url: width: 360 }} 360w,
+                          {{ article.image | image_url: width: 533 }} 533w,
+                          {{ article.image | image_url: width: 720 }} 720w,
+                          {{ article.image | image_url: width: 940 }} 940w,
+                          {{ article.image | image_url: width: 1066 }} 1066w"
+                        src="{{ article.image | image_url: width: 533 }}"
+                        sizes="(min-width: 990px) calc((100vw - 130px) / 3), calc((100vw - 90px) / 2)"
+                        alt="{{ article.image.alt | escape }}"
+                        class="article-card__image"
+                        loading="lazy"
+                        width="{{ article.image.width }}"
+                        height="{{ article.image.height }}">
+                    </a>
+                  </div>
+                {%- endif -%}
+                <div class="article-card__info">
+                  <header class="article-card__header">
+                    <h2 class="article-card__title h3" id="Article-{{ article.id }}">
+                      <a href="{{ article.url }}">{{ article.title | escape }}</a>
+                    </h2>
+                    {%- if section.settings.show_date -%}
+                      <span class="article-card__date">{{ article.published_at | date: format: 'date' }}</span>
+                    {%- endif -%}
+                    {%- if section.settings.show_author -%}
+                      <span class="article-card__author">{{ article.author }}</span>
+                    {%- endif -%}
+                  </header>
+                  {%- if section.settings.show_excerpt -%}
+                    <p class="article-card__excerpt rte-width">
+                      {%- if article.excerpt.size > 0 -%}
+                        {{ article.excerpt | strip_html | truncate: 150 }}
+                      {%- else -%}
+                        {{ article.content | strip_html | truncate: 150 }}
+                      {%- endif -%}
+                    </p>
+                  {%- endif -%}
+                  <div class="article-card__footer">
+                    <a href="{{ article.url }}" class="article-card__link link link--text">{{ 'blogs.article.read_more' | t }}</a>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      {%- if paginate.pages > 1 -%}
+        {%- render 'pagination', paginate: paginate -%}
+      {%- endif -%}
+    {%- endpaginate -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main-blog.name",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "articles_per_page",
+      "min": 3,
+      "max": 24,
+      "step": 3,
+      "default": 12,
+      "label": "t:sections.main-blog.settings.articles_per_page.label"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3,
+      "label": "t:sections.main-blog.settings.columns_desktop.label"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "default": "1",
+      "label": "t:sections.main-blog.settings.columns_mobile.label",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "show_image",
+      "default": true,
+      "label": "t:sections.main-blog.settings.show_image.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "default": true,
+      "label": "t:sections.main-blog.settings.show_date.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "default": false,
+      "label": "t:sections.main-blog.settings.show_author.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_excerpt",
+      "default": true,
+      "label": "t:sections.main-blog.settings.show_excerpt.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tags",
+      "default": true,
+      "label": "t:sections.main-blog.settings.show_tags.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ]
+}
+{% endschema %}
