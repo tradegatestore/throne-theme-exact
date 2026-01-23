@@ -21,7 +21,8 @@
   background-color: #f5f5f5;
 }
 
-.dual-media-slideshow__container {
+.dual-media-slideshow__container {,
+.dual-media-slideshow__grid
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
   gap: 1.5rem;
@@ -31,7 +32,9 @@
 }
 
 /* Left Panel - Main Slide */
-.dual-media-slideshow__main {
+.dual-media-slideshow__main {,
+.dual-media-slideshow__panel,
+.dual-media-slideshow__panel--left
   position: relative;
   border-radius: 24px;
   overflow: hidden;
@@ -84,7 +87,8 @@
 }
 
 /* Right Panel - Product Card */
-.dual-media-slideshow__secondary {
+.dual-media-slideshow__secondary {,
+.dual-media-slideshow__panel--right
   position: relative;
   border-radius: 24px;
   overflow: hidden;
