@@ -21,6 +21,39 @@
           }
         }
       }
+          "announcement-bar": {
+      "name": "Announcement bar",
+      "settings": {
+        "color_scheme": {
+          "label": "Color scheme"
+        },
+        "text_color": {
+          "label": "Text color"
+        },
+        "auto_rotate": {
+          "label": "Auto-rotate announcements"
+        },
+        "change_slides_speed": {
+          "label": "Change slides every"
+        }
+      },
+      "blocks": {
+        "announcement": {
+          "name": "Announcement",
+          "settings": {
+            "text": {
+              "label": "Text"
+            },
+            "link": {
+              "label": "Link"
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Announcement bar"
+      }
+    },
     },
     "main-404": {
       "name": "404 Page",
